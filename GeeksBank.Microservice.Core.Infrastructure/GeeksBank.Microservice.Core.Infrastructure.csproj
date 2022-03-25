@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>GeeksBank.Microservice.Core.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.0.30" />
+        <PackageReference Include="DataAbstractions.Dapper" Version="2.1.0" />
+        <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+        <PackageReference Include="Flurl.Http" Version="2.4.2" />
+        <PackageReference Include="IdentityServer4" Version="4.1.1" />
+        <PackageReference Include="Mapster" Version="7.0.0" />
+        <PackageReference Include="MediatR" Version="7.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+        <PackageReference Include="MongoDB.Driver" Version="2.12.3" />
+        <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GeeksBank.Microservice.Core.Domain\GeeksBank.Microservice.Core.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="EntityConfigurations" />
+        <Folder Include="MIgrations" />
+    </ItemGroup>
+
+</Project>

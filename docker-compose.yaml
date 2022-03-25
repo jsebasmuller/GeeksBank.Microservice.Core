@@ -1,0 +1,46 @@
+# Use root/example as core/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:4.4.3
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: geeksbank-core
+    ports:
+      - 27017:27027
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+
+    depends_on:
+      - mongo
+
+  db:
+    image: mysql:5.7.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ${PWD}/scripts_local/:/docker-entrypoint-initdb.d
+      - ${PWD}/scripts_local/:/data/db
+    environment:
+      MYSQL_ROOT_PASSWORD: techmk2
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
