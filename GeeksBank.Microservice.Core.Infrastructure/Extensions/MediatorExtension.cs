@@ -11,7 +11,7 @@ namespace GeeksBank.Microservice.Core.Infrastructure.Extensions
     /// <source>Microsoft</source>
     static class MediatorExtension
     {
-        public static async Task DispatchDomainEventsAsync(this IMediator mediator, CoresContext ctx)
+        public static async Task DispatchDomainEventsAsync(this IMediator mediator, ResultsContext ctx)
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()

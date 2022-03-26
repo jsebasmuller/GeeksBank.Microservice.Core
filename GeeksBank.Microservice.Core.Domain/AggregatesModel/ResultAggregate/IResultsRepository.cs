@@ -3,10 +3,10 @@ using GeeksBank.Microservice.Core.Domain.SeedWork;
 
 namespace GeeksBank.Microservice.Core.Domain.AggregatesModel.ResultAggregate
 {
-    public interface IResultsRepository : IRepository<Results>
-    {
-        Task<List<int>> CreateResponse(UserAccount user);
-        Task<UserAccount> UpdateUser(UserAccount user);
-       
-    }
+  public interface IResultsRepository : IRepository<Results>
+  {
+    public IUnitOfWork UnitOfWork { get; }
+    Task<Response> CreateResponse(Results result);
+
+  }
 }

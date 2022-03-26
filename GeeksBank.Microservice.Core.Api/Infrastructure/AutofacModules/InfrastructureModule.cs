@@ -3,13 +3,13 @@ using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using GeeksBank.Microservice.Core.Domain.AggregatesModel;
-
-using GeeksBank.Microservice.Core.Domain.AggregatesModel.CoreAggregate;
 using GeeksBank.Microservice.Core.Infrastructure.Models;
-using GeeksBank.Microservice.Core.Infrastructure.Remote;
 using GeeksBank.Microservice.Core.Infrastructure.Repository;
 using Serilog;
 using Serilog.Core;
+using GeeksBank.Microservice.Core.Infrastructure;
+using GeeksBank.Microservice.Core.Domain.AggregatesModel.ResultAggregate;
+using GeeksBank.Microservice.Core.Domain.AggregatesModel.FibonacciAggregate;
 
 namespace GeeksBank.Microservice.Core.Api.Infrastructure.AutofacModules
 {
@@ -27,37 +27,17 @@ namespace GeeksBank.Microservice.Core.Api.Infrastructure.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CoreContext>()
-                .As<CoreContext>()
+            builder.RegisterType<ResultsContext>()
+                .As<ResultsContext>()
                 .InstancePerLifetimeScope();
             
-            builder.RegisterType<CoreRepository>()
-                .As<ICoreRepository>()
+            builder.RegisterType<ResultsRepository>()
+                .As<IResultsRepository>()
                 .InstancePerLifetimeScope();
             
-            builder.RegisterType<AccountRepository>()
-                .As<IAccountRepository>()
+            builder.RegisterType<FibonacciRepository>()
+                .As<IFibonacciRepository>()
                 .InstancePerLifetimeScope();
-
-            builder.RegisterType<CoreManager<ApplicationCore>>()
-                .As<CoreManager<ApplicationCore>>()
-                .InstancePerLifetimeScope();
-            
-            builder.RegisterType<SignInManager<ApplicationCore>>()
-                .As<SignInManager<ApplicationCore>>()
-                .InstancePerLifetimeScope();
-            
-            builder.RegisterType<ThirdCoreRemoteClient>()
-                .As<ICoreRemoteFinder>()
-                .SingleInstance();
-            
-            builder.RegisterType<CatalogRemoteClient>()
-                .As<ICatalogRemoteFinder>()
-                .SingleInstance();
-            
-            builder.RegisterType<LoginRepositoryClient>()
-                .As<ILoginRemoteClient>()
-                .SingleInstance();
             
             builder.RegisterInstance(_configuration).As<IConfiguration>();
          

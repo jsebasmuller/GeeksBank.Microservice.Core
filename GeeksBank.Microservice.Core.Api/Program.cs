@@ -25,7 +25,7 @@ namespace GeeksBank.Microservice.Core.Api
                 Console.WriteLine(FiggleFonts.Standard.Render(ServiceName));
                 var host = CreateHostBuilder(args).Build();
                 
-                host.MigrateDatabase<CoresContext>((context, services) =>
+                host.MigrateDatabase<ResultsContext>((context, services) =>
                 {
                     // new CoresContextSeed(services)
                     //     .SeedAsync()
