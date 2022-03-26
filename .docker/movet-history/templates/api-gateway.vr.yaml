@@ -1,0 +1,42 @@
+{{ if .Values.apiGateway.enabled }}
+
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{.Release.Name}}
+spec:
+  gateways:
+    - {{.Release.Name}}
+  hosts:
+    - '*'
+  http:
+    - match:
+        - uri:
+            prefix: /health
+      route:
+        - destination:
+            host: {{.Release.Name}}
+            port:
+              number: {{ .Values.service.port }}
+
+    - match:
+        - uri:
+            prefix: /api/
+      route:
+        - destination:
+            host: {{.Release.Name}}
+            port:
+              number: {{ .Values.service.port }}
+    
+    - match:
+        - uri:
+            prefix: /{{ .Values.apiGateway.prefix }}
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: {{.Release.Name}}
+            port:
+              number: {{ .Values.service.port }}
+
+{{ end }}

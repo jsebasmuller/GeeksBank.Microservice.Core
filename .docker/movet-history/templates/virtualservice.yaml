@@ -1,0 +1,16 @@
+{{ if eq .Values.apiGateway.enabled false }}
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{.Release.Name}}
+spec:
+  hosts:
+    - {{.Release.Name}}
+  http:
+    - route:
+        - destination:
+            host: {{.Release.Name}}
+            subset: v1
+
+{{ end }}

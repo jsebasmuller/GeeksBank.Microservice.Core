@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{.Release.Name}}
+  name: {{.Release.Name}}
+  namespace: {{.Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  template:
+    metadata:
+      {{- if .Values.podAnnotations}}
+      annotations:
+        {{- range $key,$value := .Values.podAnnotations}}
+        {{ $key }} : {{ $value | quote }}
+        {{- end}}
+      {{- end}}
+      labels:
+        app: {{.Release.Name}}
+    spec:
+      serviceAccountName: {{ .Release.Name }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.repository }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
+          {{ $length := len .Values.ports }} {{ if eq $length 0 }}
+          ports:
+            - name: http
+              {{ with index .Values.service.ports 0 }}
+              containerPort: {{ .port }}
+              {{ end }}
+              protocol: TCP
+          {{- else }}
+
+          ports:
+          {{- range .Values.ports }}
+            - name: {{ required "A valid .Values.ports[].name entry required!" .name  }}
+              containerPort: {{ required "A valid .Values.ports[].containerPort entry required!" .containerPort }}
+              protocol: {{ .protocol | default "TPC"  }}
+
+          {{- end }}
+
+          {{- end }}
+
+
+          {{ if .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- end }}
+
+          {{ if .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.appsettings }}
+          volumeMounts:
+            - name: config-{{.Release.Name}}
+              mountPath: app/Configuration/appsettings.{{ .Values.env }}.json
+              subPath: appsettings.{{ .Values.env }}.json
+          {{- end}}
+          
+          envFrom:
+            - secretRef:
+                name: {{ .Release.Name }}-envs
+                optional: true
+            - configMapRef:
+                name: {{ .Release.Name }}-envs
+                optional: true
+
+      {{- if .Values.appsettings }}
+      volumes:
+        - name: config-{{.Release.Name}}
+          configMap:
+            name: siigo-configmap-{{.Release.Name}}
+      {{- end}}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

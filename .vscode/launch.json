@@ -5,20 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Micro Core Debug",
+            "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/GeeksBank.Microservice.Core.Api/bin/Debug/netcoreapp5.0/GeeksBank.Microservice.Core.Api.dll",
+            "program": "${workspaceFolder}/GeeksBank.Core.Api/bin/Debug/net5.0/GeeksBank.Core.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/GeeksBank.Microservice.Core.Api",
+            "cwd": "${workspaceFolder}/GeeksBank.Core.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "local"
+                "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

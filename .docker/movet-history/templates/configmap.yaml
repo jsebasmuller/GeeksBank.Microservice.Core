@@ -1,0 +1,8 @@
+{{- if .Values.appsettings }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: siigo-configmap-{{.Release.Name}}
+data:
+  appsettings.{{ .Values.env }}.json:  {{ .Values.appsettings | toJson | quote}}
+{{- end}}

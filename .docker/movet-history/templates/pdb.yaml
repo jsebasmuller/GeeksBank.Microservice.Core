@@ -1,0 +1,9 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{.Release.Name}}
+spec:
+  minAvailable: {{ .Values.podDisruptionBugets.minAvailable }}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}

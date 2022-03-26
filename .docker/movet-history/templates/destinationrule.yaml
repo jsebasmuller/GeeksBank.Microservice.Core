@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{.Release.Name}}
+spec:
+  host: {{.Release.Name}}
+  subsets:
+    - labels:
+        app:  {{.Release.Name}}
+      name: v1
+      trafficPolicy:
+        connectionPool:
+          http: {}
+          tcp: {}
+        outlierDetection:
+          {{- toYaml .Values.outlierDetection | nindent 12 }}
