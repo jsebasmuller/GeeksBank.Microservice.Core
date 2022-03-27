@@ -23,7 +23,7 @@ namespace GeeksBank.Core.Infrastructure.Repository
             _context = usersContext;
         }
 
-        public async Task<List<int>> GetFibonacci()
+        public async Task<List<long>> GetFibonacci()
         {
             return await _context.Fibonacci.Select(x => x.Number).ToListAsync();
         }

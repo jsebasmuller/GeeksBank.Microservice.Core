@@ -6,7 +6,7 @@ namespace GeeksBank.Core.Domain.AggregatesModel.FibonacciAggregate
 {
     public interface IFibonacciRepository
     {
-        Task<List<int>> GetFibonacci();
+        Task<List<long>> GetFibonacci();
         Task SaveAsync();
     }
 }

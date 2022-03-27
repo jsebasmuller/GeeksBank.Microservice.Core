@@ -15,6 +15,6 @@ namespace GeeksBank.Core.Domain.AggregatesModel.FibonacciAggregate
         }
         [Key]
         public int Id { get; set; }
-        public int Number { get; set; }
+        public long Number { get; set; }
     }
 }

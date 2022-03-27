@@ -8,6 +8,6 @@ namespace GeeksBank.Core.Infrastructure.Models
 
         [Key]
         public int Id { get; set; }
-        public int Number { get; set; }
+        public long Number { get; set; }
     }
 }

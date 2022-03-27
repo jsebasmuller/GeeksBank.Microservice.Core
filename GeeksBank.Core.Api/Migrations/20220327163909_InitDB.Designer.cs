@@ -3,14 +3,16 @@ using GeeksBank.Core.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GeeksBank.Core.Api.Migrations
 {
     [DbContext(typeof(GeeksBankDbContext))]
-    partial class GeeksBankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220327163909_InitDB")]
+    partial class InitDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
