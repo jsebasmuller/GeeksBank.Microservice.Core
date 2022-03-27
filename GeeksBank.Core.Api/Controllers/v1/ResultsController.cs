@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Net;
 using MediatR;
 using GeeksBank.Report.Api.Constants;
+using GeeksBank.Core.Api.Application.Commands;
 using GeeksBank.Core.Domain.AggregatesModel.ResultsAggregate;
 using GeeksBank.Core.Domain.Exception;
 using GeeksBank.Core.Infrastructure.Extensions;
@@ -29,15 +30,15 @@ namespace GeeksBank.Core.Api.Controllers.v1
             _mediator = mediator;
         }
 
-        //[Route("add-history-user")]
-        //[HttpPost()]
-        //[ProducesResponseType(typeof(Response), (int)HttpStatusCode.OK)]
-        //[ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        //public async Task<IActionResult> AddHistoryUser(RegisterUserCommand command)
-        //{
-        //    _logger.Information("UserController AddHistoryUser: {@LoginUserCommand}", command);
-        //    var result = await _mediator.Send(command).ConfigureAwait(false);
-        //    return Ok(result);
-        //}
+        [Route("add-results")]
+        [HttpPost()]
+        [ProducesResponseType(typeof(Response), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> AddResults(AddResultsCommand command)
+        {
+            _logger.Information("UserController AddResults: "+ command);
+            var result = await _mediator.Send(command).ConfigureAwait(false);
+            return Ok(result);
+        }
     }
 }

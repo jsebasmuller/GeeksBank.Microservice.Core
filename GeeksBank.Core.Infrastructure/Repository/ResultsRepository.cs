@@ -31,6 +31,7 @@ namespace GeeksBank.Core.Infrastructure.Repository
       Response resp = new Response();
       resp.Result = resultSave.Result;
       resp.IsInFibonacci = _context.Fibonacci.Any(x => x.Number == resp.Result);
+      this.SaveAsync();
       return resp;
     }
 
