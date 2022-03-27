@@ -8,8 +8,8 @@ namespace GeeksBank.Core.Api.Application.Commands
 {
     public class AddResultsCommand : IRequest<Response>
     {
-        public int Number1 { get; set; }
-        public int Number2 { get; set; }
+        public long Number1 { get; set; }
+        public long Number2 { get; set; }
 
         public AddResultsCommand()
         {
